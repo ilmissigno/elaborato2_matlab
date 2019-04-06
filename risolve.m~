@@ -1,0 +1,93 @@
+function x = risolve(A,b,opt)
+
+switch nargin
+    case 0
+        error('Inserire i parametri A,b e opt');
+    case 1
+        error('Inserire assieme alla matrice anche il vettore b e la struttura opt');
+    case 2
+        error('Inserire anche opt');
+end
+
+controllo_MatrixA(A);
+controllo_VectorB(A,b);
+controllo_StructOpt(opt);
+
+n = size(A,1);
+x=zeros(1,n);
+i=1:n;
+piv(i)=i;
+n_s = 0;
+e = eps(norm(A));
+
+if(any(find(abs(diag(A))<e))==1)
+    error('A e Singolare');
+end
+
+if(opt.sup)
+    if(triu(A)==A)
+    %Algoritmo di BS
+    x(n)=b(piv(n))/A(piv(n),n);
+    i=n-1;
+    while i>0
+        somma=sum(A(piv(i),i+1:n).*x(i+1:n));
+        % Determinazione della i-esima incognita
+        x(i)=(b(piv(i))-somma)/A(piv(i),i);
+        i=i-1;
+    end
+    else
+        error('La matrice A deve essere triangolare superiore');
+    end
+elseif(opt.inf && tril(A)==A)
+    %Algoritmo di FS
+    x(1,1)=b(1)./A(1,1);
+    for i = 2:1:n
+        x(i) = (b(i)-A(i,1:i-1)*x(1:i-1)')/A(i,i);
+    end
+elseif(opt.full)
+    %Algoritmo di Gauss
+    for k=1:n-1
+        r=find(abs(A(piv(1:n),k))==max(abs(A(piv(k+1:n),k))));
+        r=r(1,1);
+        if abs(A(piv(r),k))>e
+            n_s=n_s+1;
+            piv([r k])=piv([k r]);  % Se il max di colonna non è uno "zero"
+            % scambia, altrimenti...
+            
+            %  Determinazione dei moltiplicatori e
+            %  collocazione di essi nella matrice
+            %  triangolare inferiore
+            %  (per un risparmio di spazio)
+            i=(k+1):n ;
+            A(piv(i),k)=A(piv(i),k)/A(piv(k),k);
+            
+            %  Modifica della matrice attiva
+            j=(k+1):n ;
+            A(piv(i),j)=A(piv(i),j)-(A(piv(i),k)*A(piv(k),j));
+            
+            %  Modifica deii termini noti
+            b(piv(i))=b(piv(i))-(A(piv(i),k)*b(piv(k)));
+            
+        else                        % ...altrimenti il sistema è singolare
+            error ('Sistema singolare: programma arrestato');
+        end
+    end
+    % Controllo della singolarità sull'ultimo elemento diagonale
+    if abs(A(piv(n),n))<=e
+        error('Sistema singolare su ultimo passo, Errore nei dati di input!');
+    end
+    %-------------------
+    % Back Substitution 
+    %-------------------
+    x(n)=b(piv(n))/A(piv(n),n);
+    i=n-1;
+    while i>0
+        somma=sum(A(piv(i),i+1:n).*x(i+1:n));
+        % Determinazione della i-esima incognita
+        x(i)=(b(piv(i))-somma)/A(piv(i),i);
+        i=i-1;
+    end
+    
+end
+x=x';
+end
