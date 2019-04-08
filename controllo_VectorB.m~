@@ -1,5 +1,0 @@
-function controllo_VectorB(A,b)
-
-if(~isnumeric(b) || 
-
-end

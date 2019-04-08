@@ -12,44 +12,46 @@ end
 controllo_MatrixA(A);
 controllo_VectorB(A,b);
 controllo_StructOpt(opt);
-
-n = size(A,1);
-x=zeros(1,n);
+%% Inizializzazione Variabili
+n = size(A,1); %dimensione matrice A
+x=zeros(1,n); %vettore soluzioni
 i=1:n;
-piv(i)=i;
-n_s = 0;
-e = eps(norm(A));
+piv(i)=i; %vettore pivot per riga
+n_s = 0; %Contatore scambi righe
+e = eps(norm(A)); %valore di condizionamento
 
+%% Controllo Singolarita' Matrice A
 if(any(find(abs(diag(A))<e))==1)
     error('A e Singolare');
 end
 
+%% Inizio Algoritmo : Verifica valore di struttura opt
 if(opt.sup)
+    %% Algoritmo di Back Substitution
     if(triu(A)==A)
-    %Algoritmo di BS
-    x(n)=b(piv(n))/A(piv(n),n);
-    i=n-1;
-    while i>0
-        somma=sum(A(piv(i),i+1:n).*x(i+1:n));
-        % Determinazione della i-esima incognita
-        x(i)=(b(piv(i))-somma)/A(piv(i),i);
-        i=i-1;
-    end
+        x(n)=b(piv(n))/A(piv(n),n);
+        i=n-1;
+        while i>0
+            somma=sum(A(piv(i),i+1:n).*x(i+1:n));
+            % Determinazione della i-esima incognita
+            x(i)=(b(piv(i))-somma)/A(piv(i),i);
+            i=i-1;
+        end
     else
         error('La matrice A deve essere triangolare superiore');
     end
 elseif(opt.inf)
+    %% Algoritmo di Forward Substitution
     if(tril(A)==A)
-    %Algoritmo di FS
-    x(1,1)=b(1)./A(1,1);
-    for i = 2:1:n
-        x(i) = (b(i)-A(i,1:i-1)*x(1:i-1)')/A(i,i);
-    end
+        x(1,1)=b(1)./A(1,1);
+        for i = 2:1:n
+            x(i) = (b(i)-A(i,1:i-1)*x(1:i-1)')/A(i,i);
+        end
     else
         error('La matrice A deve essere triangolare inferiore');
     end
 elseif(opt.full)
-    %Algoritmo di Gauss
+    %% Algoritmo di Gauss + Back Substitution
     for k=1:n-1
         r=find(abs(A(piv(1:n),k))==max(abs(A(piv(k+1:n),k))));
         r=r(1,1);
@@ -81,7 +83,7 @@ elseif(opt.full)
         error('Sistema singolare su ultimo passo, Errore nei dati di input!');
     end
     %-------------------
-    % Back Substitution 
+    % Back Substitution
     %-------------------
     x(n)=b(piv(n))/A(piv(n),n);
     i=n-1;
@@ -93,5 +95,5 @@ elseif(opt.full)
     end
     
 end
-x=x';
+x=x'; % Inversione elementi (trasposta) vettore soluzione
 end
