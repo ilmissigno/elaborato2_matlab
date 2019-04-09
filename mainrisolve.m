@@ -1,4 +1,4 @@
-A = rand(4,4);
+A = rand(3,3);
 A = tril(A);
 b = rand(3,1);
 opt.full=false;
