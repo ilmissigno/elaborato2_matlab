@@ -1,7 +1,7 @@
 A = rand(3,3);
 A = tril(A);
 b = rand(3,1);
-opt.full=false;
+opt.full=true;
 opt.sup=false;
-opt.inf=true;
+opt.inf=false;
 x = risolve(A,b,opt)

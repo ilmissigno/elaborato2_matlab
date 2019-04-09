@@ -35,18 +35,11 @@ function [indice_cond,err,residuo,grafico] = Calcolo_Accuratezza(A,x,b,tipo)
             er(n)=norm(x-y)/norm(x);
         end
         x=1:200;
-        figure('Renderer', 'painters', 'Position', [30 30 1600 600])
-        subplot(1,2,1);
+        subplot(2,1,1);
         plot(x,log10(c))
-        xlabel('Soluzioni')
-        ylabel('Indici di condizionamento')
-        title('Indice di Condizionamento')
-        subplot(1,2,2);
-        plot(x,log10(re),'g',x,log10(er),'m')
-        xlabel('Soluzioni')
-        ylabel('Errore x Residuo')
-        title('Confronto Errore Residuo')
-        sgtitle('Grafico degli indici di condizionamento, errore e residuo dell''errore')
+        title('Calcolo Accuratezza');
+        subplot(2,1,2);
+        plot(x,log10(re),'g',x,log10(er),'r')
         else
             warning('Attenzione grafico non possibile. La matrice dev''essere piena');
         end

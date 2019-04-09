@@ -25,7 +25,13 @@ if(opt.sup)
 elseif(opt.inf)
     x = FS_Algorithm(A,b,n);
 elseif(opt.full)
-    x = Gauss_BS_Algorithm(A,b,piv,n,e,n_s);
+    if(tril(A)==A)
+        error('La matrice deve essere piena per trovare la soluzione con l''algoritmo di Gauss');
+    elseif(triu(A)==A)
+        error('La matrice deve essere piena per trovare la soluzione con l''algoritmo di Gauss');
+    else
+        x = Gauss_BS_Algorithm(A,b,piv,n,e,n_s);
+    end
 end
 x=x'; % Inversione elementi (trasposta) vettore soluzione
 end
