@@ -12,8 +12,8 @@ if(~islogical(opt.sup) || ~islogical(opt.inf) || ~islogical(opt.full))
     error('i campi di opt devono assumere valori booleani');
 end
 
-if(~opt.sup && ~opt.inf && ~opt.full)
-    error('Almeno uno dei campi di opt devono assumere true');
+if((opt.sup && opt.inf) || (opt.full && opt.inf) || (opt.sup && opt.full))
+    error('Solo uno dei campi di opt devono assumere true');
 end
 
 end
