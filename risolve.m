@@ -35,3 +35,6 @@ elseif(opt.full)
 end
 x=x'; % Inversione elementi (trasposta) vettore soluzione
 end
+
+
+
