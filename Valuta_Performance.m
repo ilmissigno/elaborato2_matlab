@@ -35,20 +35,14 @@ warning off;
    % legend('risolve','mldivide')
     h = animatedline('MaximumNumPoints',(fine-inizio)/passo);
  axis([0,fine,0,0.005])
-a = tic;
+while(1)
 for k = inizio:passo:fine
     
     addpoints(h, vettore_NRighe(k), vettore_tempi(k));
-    %drawnow limitrate
-    b = toc(a); % check timer
-    if b > (1)
-        drawnow % update screen every 1/30 seconds
-        a = tic; % reset timer after updating
-    end
+    drawnow 
 end
-drawnow % draw final frame
 end
-
+end
 
 
 
