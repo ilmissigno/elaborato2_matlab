@@ -1,4 +1,4 @@
-function controllo_StructOpt(opt)
+function controllo_StructOpt(opt,A)
 
 if(~isstruct(opt))
     error('opt deve essere una struttura');
@@ -16,4 +16,17 @@ if((opt.sup && opt.inf) || (opt.full && opt.inf) || (opt.sup && opt.full))
     error('Solo uno dei campi di opt devono assumere true');
 end
 
+if(triu(A)~=A)
+    if(opt.sup == true)
+        error('La Matrice deve essere coerente con la tipologia di opt');
+    end
+elseif(tril(A)~=A)
+    if(opt.inf == true)
+        error('La Matrice deve essere coerente con la tipologia di opt');
+    end
+else
+    if(opt.full == false)
+        error('La Matrice deve essere coerente con la tipologia di opt');
+    end
+end
 end

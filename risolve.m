@@ -11,7 +11,7 @@ end
 
 controllo_MatrixA(A);
 controllo_VectorB(A,b);
-controllo_StructOpt(opt);
+controllo_StructOpt(opt,A);
 %% Inizializzazione Variabili
 [n,x,piv,n_s,e] = init_Var(A);
 %% Controllo Singolarita' Matrice A
@@ -20,18 +20,12 @@ if(any(find(abs(diag(A))<e))==1)
 end
 
 %% Inizio Algoritmo : Verifica valore di struttura opt
-if(opt.sup)
+if(opt.sup==true)
     x = BS_Algorithm(A,b,n,piv);
-elseif(opt.inf)
+elseif(opt.inf==true)
     x = FS_Algorithm(A,b,n);
-elseif(opt.full)
-    if(tril(A)==A)
-        error('La matrice deve essere piena per trovare la soluzione con l''algoritmo di Gauss');
-    elseif(triu(A)==A)
-        error('La matrice deve essere piena per trovare la soluzione con l''algoritmo di Gauss');
-    else
+elseif(opt.full==true)
         x = Gauss_BS_Algorithm(A,b,piv,n,e,n_s);
-    end
 end
 x=x'; % Inversione elementi (trasposta) vettore soluzione
 end

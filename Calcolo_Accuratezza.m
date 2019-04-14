@@ -1,5 +1,5 @@
 function [indice_cond,err,residuo,grafico] = Calcolo_Accuratezza(A,x,b,tipo)
-    opt.full=false; opt.sup=false; opt.inf=false;
+    opt.full=true; opt.sup=false; opt.inf=false;
     indice_cond=0;
     err=0;
     residuo=0;
@@ -27,8 +27,11 @@ function [indice_cond,err,residuo,grafico] = Calcolo_Accuratezza(A,x,b,tipo)
     else
         if(strcmp(tipo,'full'))
             opt.full=true;
+            opt.sup=false;
+            opt.inf=false;
         for n=1:200
             a=rand(n);
+            a=full(a);
             x=2*ones(n,1);
             b=a*x;
             c(n)=cond(a);
@@ -53,4 +56,4 @@ function [indice_cond,err,residuo,grafico] = Calcolo_Accuratezza(A,x,b,tipo)
             warning('Attenzione grafico non possibile. La matrice dev''essere piena');
         end
 end
-
+end
