@@ -16,16 +16,16 @@ if((opt.sup && opt.inf) || (opt.full && opt.inf) || (opt.sup && opt.full))
     error('Solo uno dei campi di opt devono assumere true');
 end
 
-if(triu(A)==A)
-    if(opt.sup == false)
+if(triu(A)~=A)
+    if(opt.sup == true)
         error('La Matrice deve essere coerente con la tipologia di opt');
     end
-elseif(tril(A)==A)
-    if(opt.inf == false)
+elseif(tril(A)~=A)
+    if(opt.inf == true)
         error('La Matrice deve essere coerente con la tipologia di opt');
     end
 else
-    if(opt.full == true)
+    if(opt.full == false)
         error('La Matrice deve essere coerente con la tipologia di opt');
     end
     
