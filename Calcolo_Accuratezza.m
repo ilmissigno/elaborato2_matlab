@@ -6,10 +6,16 @@ function [indice_cond,err,residuo,grafico] = Calcolo_Accuratezza(A,x,b,tipo)
     if (nargout<4)
     if strcmp(tipo,'full')
         opt.full = true;
+        opt.sup=false; 
+        opt.inf=false;
     elseif strcmp(tipo,'inf')
         opt.inf = true;
+        opt.sup=false;
+        opt.full=false;
     elseif strcmp(tipo,'sup')
         opt.sup = true;
+        opt.inf = false;
+           opt.full=false;
     else
         error("Tipo matrice non valido");
     end

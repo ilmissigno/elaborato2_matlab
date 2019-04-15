@@ -176,7 +176,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
         end
         
         function TestCase18(testCase)
-            
+            %%  Verifica l'errore nel caso la matrice sia singolare
             
             [A,b,opt] = Richiama_Parametri();
             A = rand(3);

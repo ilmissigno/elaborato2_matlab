@@ -19,11 +19,11 @@ if((opt.sup && opt.inf) || (opt.full && opt.inf) || (opt.sup && opt.full))
 end
 
 
-if(triu(A)==A)
+if(istriu(A))
     if(opt.sup == false)
         error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt 1');
     end
-elseif(tril(A)==A)
+elseif(istril(A))
     if(opt.inf == false)
        
           error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt 2');
