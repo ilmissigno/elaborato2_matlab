@@ -28,9 +28,12 @@ elseif(opt.full==true)
         x = Gauss_BS_Algorithm(A,b,piv,n,e,n_s);
 end
 x=x'; % Inversione elementi (trasposta) vettore soluzione
- 
+ if(size(A,2) ~= length(b))
+     error('Err:CoerenzaAeB','Il vettore B deve avere lo stesso numero di righe di A');
 end
 
+end
+end
 
 
 
