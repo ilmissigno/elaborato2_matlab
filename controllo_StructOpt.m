@@ -1,12 +1,13 @@
 function controllo_StructOpt(opt,A)
 
-if(~isstruct(opt))
-    error('Err:optStruct','opt deve essere una struttura');
+if(~isstruct(opt))||(~isfield(opt,'sup') && ~isfield(opt,'inf') && ~isfield(opt,'full'))
+    error('Err:optStruct','opt deve essere una struttura dei 3 campi specificati');
 
 end
 
-if(~isfield(opt,'sup') || ~isfield(opt,'inf') || ~isfield(opt,'full'))
-     error('Err:optCampi','opt deve avere sup inf e full come campi');
+
+if(length(fieldnames(opt))>3)
+        error('Err:optCampi','opt deve avere sup inf e full come campi');
 end
 
 if(~islogical(opt.sup) || ~islogical(opt.inf) || ~islogical(opt.full))

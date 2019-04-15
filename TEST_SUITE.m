@@ -92,15 +92,6 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
          end
         
-        function TestCase6(testCase)
-             %% TEST VETTORE B 
-            %Verifica l'errore nel caso in cui b non è un vettore
-            [A,b,opt] = Richiama_Parametri();
-            b = 'a';
-            verifyError(testCase,@()risolve(A,b,opt),'Err:BVector');
-            
-            
-        end
         
         
         function TestCase7(testCase)
@@ -133,21 +124,13 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             verifyError(testCase,@()risolve(A,b,opt),'Err:CoerenzaAeB');
             
         end
-        function TestCase10(testCase)
-            %% TEST MATRICE A 
-            %Verifica l'errore nel caso in cui A non è una matrice
-            [A,b,opt] = Richiama_Parametri();
-            A= [3 4 5];
-            verifyError(testCase,@()risolve(A,b,opt),'Err:A_isMatrix');
-            
-            
-        end
+        
         
         function TestCase11(testCase)
             %% TEST MATRICE A VUOTA
             % Verifica l'errore nel caso in cui la matrice A è vuota 
             [A,b,opt] = Richiama_Parametri();
-            A=zeros(3);
+            A=[];
             verifyError(testCase,@()risolve(A,b,opt),'Err:EmptyMatrix');
         end
         
@@ -157,7 +140,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
             [A,b,opt] = Richiama_Parametri();
             A= [3,2; 'a',4];
-            verifyError(testCase,@()risolve(A,b,opt), 'Error:Matrix_NotNumeric');
+            verifyError(testCase,@()risolve(A,b,opt), 'Err:Matrix_NotNumeric');
             
         end
         
@@ -192,11 +175,11 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
         end
         
-        function testFunctionCase18(testCase)
+        function TestCase18(testCase)
             
             
             [A,b,opt] = Richiama_Parametri();
-            A = rand(10);
+            A = rand(3);
             A(1,1)=0;
             verifyError(testCase,@()risolve(A,b,opt),'Err:A_Singolare');
     
