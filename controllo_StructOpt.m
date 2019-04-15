@@ -16,20 +16,20 @@ end
 if((opt.sup && opt.inf) || (opt.full && opt.inf) || (opt.sup && opt.full))
  error('Err:MutuaEsclusioneCampi','Solo uno dei campi di opt devono assumere true');
 end
-end
+
 
 if(triu(A)==A)
     if(opt.sup == false)
-        error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt');
+        error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt 1');
     end
 elseif(tril(A)==A)
     if(opt.inf == false)
        
-          error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt');
+          error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt 2');
     end
 else
-    if(opt.full == true)
-        error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt');
+    if(opt.full == false)
+        error('Err:MatriceCoerente','La Matrice deve essere coerente con la tipologia di opt 3');
     end
     
 end
