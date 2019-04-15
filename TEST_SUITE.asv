@@ -83,10 +83,10 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             %verifica l'errore nel caso in cui la matrice A non è coerente
             %con il campo specificato
             [A,b,opt] = Richiama_Parametri();
-            A = full(A); 
-            opt.sup = true;
+            A = rand(10); 
+            opt.sup = false;
             opt.inf = false;
-            opt.full =false;
+            opt.full = true;
             verifyError(testCase,@()risolve(A,b,opt),'Err:MatriceCoerente');
             
             
