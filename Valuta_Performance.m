@@ -16,11 +16,12 @@ warning off;
             opt.sup=true;
             opt.inf=false;
              opt.full=false;
-        elseif strcmp(tipoMatrice,'full')
+        else if strcmp(tipoMatrice,'full')
             A=full(A);
             opt.full=true;
             opt.inf=false;
              opt.sup=false;
+                   
         end
         f = @() risolve(A,b,opt); 
         f_mlDivide = @() A\b; %MLDivide
@@ -34,8 +35,7 @@ warning off;
     xlabel('Numero di righe')
    ylabel('Tempo di esecuzione (s)')
    legend('risolve','mldivide')
-    axis([0,fine,0,0.0025])
-
+ 
 end
 
 
