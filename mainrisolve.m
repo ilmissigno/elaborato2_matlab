@@ -1,6 +1,6 @@
-A = rand(3,3);
+A = [1 1; 3 2];
 %A = tril(A);
-b = rand(3,1);
+b = [1; 7];
 opt.full=true;
 opt.sup=false;
 opt.inf=false;

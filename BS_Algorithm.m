@@ -1,15 +1,12 @@
-%% Algoritmo di Back Substitution
-function x = BS_Algorithm(A,b,n,piv)
-if(triu(A)==A)
-    x(n)=b(piv(n))/A(piv(n),n);
-    i=n-1;
-    while i>0
-        somma=sum(A(piv(i),i+1:n).*x(i+1:n));
-        % Determinazione della i-esima incognita
-        x(i)=(b(piv(i))-somma)/A(piv(i),i);
-        i=i-1;
-    end
-else
-    error('La matrice A deve essere triangolare superiore');
+function x = BS_Algorithm(A,b,n)
+
+if any(find(abs(diag(A)) < eps(norm(A)))) ==1
+    error('La matrice A è singolare');
 end
+
+    x(n,1)=b(n)./A(n,n);
+    for i = n-1:-1:1
+        x(i,1) = (b(i)-A(i,i+1:n)*x(i+1:n,1))/A(i,i);
+    end
+
 end

@@ -1,10 +1,15 @@
-function x = Gauss_BS_Algorithm(A,b,piv,n,e,n_s)
+function x = Gauss_BS_Algorithm(A,b,n,e)
 %% Algoritmo di Gauss + Back Substitution
+
+for i=1:n
+    piv(i)=i;
+end
+
 for k=1:n-1
     r=find(abs(A(piv(1:n),k))==max(abs(A(piv(k+1:n),k))),1);
     %r=r(1,1);
     if abs(A(piv(r),k))>e
-        n_s=n_s+1;
+     
         if r ~= k
             piv([r k])=piv([k r]);  % Se il max di colonna non è uno "zero"
             % scambia, altrimenti...
@@ -36,14 +41,7 @@ end
 %-------------------
 % Back Substitution
 %-------------------
-x(n)=b(piv(n))/A(piv(n),n);
-i=n-1;
-while i>0
-    somma=sum(A(piv(i),i+1:n).*x(i+1:n));
-    % Determinazione della i-esima incognita
-    x(i)=(b(piv(i))-somma)/A(piv(i),i);
-    i=i-1;
-end
+x = BS_Algorithm_Gauss(A,b,n,piv);
 end
 
 

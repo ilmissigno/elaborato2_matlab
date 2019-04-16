@@ -13,7 +13,7 @@ controllo_MatrixA(A);
 controllo_VectorB(A,b);
 controllo_StructOpt(opt,A);
 %% Inizializzazione Variabili
-[n,x,piv,n_s,e] = init_Var(A);
+[n,x,e] = init_Var(A);
 %% Controllo Singolarita' Matrice A
 if(any(find(abs(diag(A))<e))==1)
      error('Err:A_Singolare','A deve essere una matrice non singolare');
@@ -21,11 +21,11 @@ end
 
 %% Inizio Algoritmo : Verifica valore di struttura opt
 if(opt.sup==true)
-    x = BS_Algorithm(A,b,n,piv);
+    x = BS_Algorithm(A,b,n);
 elseif(opt.inf==true)
     x = FS_Algorithm(A,b,n);
 elseif(opt.full==true)
-        x = Gauss_BS_Algorithm(A,b,piv,n,e,n_s);
+    x = Gauss_BS_Algorithm(A,b,n,e);
 end
 x=x'; % Inversione elementi (trasposta) vettore soluzione
  
