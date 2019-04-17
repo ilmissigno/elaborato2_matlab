@@ -19,12 +19,16 @@ controllo_StructOpt(opt,A);
 if(opt.sup==true)
   %% Controllo Singolarita' Matrice A triangolare superiore
   if(any(find(abs(diag(A))<e))==1)
+      %si evita in tal modo di chiamare la funzione successiva nel caso
+      % in cui la matrice sia singolare
        error('Err:A_Singolare','A deve essere una matrice non singolare');
   end
     x = BS_Algorithm(A,b,n);
 elseif(opt.inf==true)
   %% Controllo Singolarita' Matrice A triangolare inferiore
   if(any(find(abs(diag(A))<e))==1)
+       %si evita in tal modo di chiamare la funzione successiva nel caso
+      % in cui la matrice sia singolare
        error('Err:A_Singolare','A deve essere una matrice non singolare');
   end
     x = FS_Algorithm(A,b,n);

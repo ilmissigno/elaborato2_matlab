@@ -1,9 +1,6 @@
 %% Algoritmo di Forward Substitution
 function x = FS_Algorithm(A,b,n)
 
-if any(find(abs(diag(A)) < eps(norm(A)))) ==1
-    error('La matrice A è singolare');
-end
 
     x(1,1)=b(1)./A(1,1);
     for i = 2:1:n

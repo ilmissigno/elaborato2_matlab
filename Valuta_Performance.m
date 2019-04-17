@@ -1,37 +1,37 @@
-function Valuta_Performance(from, to, periodo_campionamento, matrix_type)
+function Valuta_Performance(inizio, fine, passo, tipo)
 %PERFORMANCE_CALCULATOR Summary of this function goes here
 %   Detailed explanation goes here
     warning('off','all');
-    exec_times = zeros(2,(to-from)/periodo_campionamento);
+    tempi_esecuzione = zeros(2,(fine-inizio)/passo);
     j=1;
-    dim_input = zeros(1,(to-from)/periodo_campionamento);
-    for i=from:periodo_campionamento:to
+    dim_input = zeros(1,(fine-inizio)/passo);
+    for i=inizio:passo:fine
         A = rand(i); b = rand(i,1); 
-        if strcmp(matrix_type,'inf')
+        if strcmp(tipo,'inf')
             A = tril(A);
             opt.inf=true;
             opt.sup=false;
             opt.full=false;
-        elseif strcmp(matrix_type,'sup')
+        elseif strcmp(tipo,'sup')
             A = triu(A);
             opt.sup=true;
             opt.full=false;
             opt.inf=false;
-        elseif strcmp(matrix_type,'full')
+        elseif strcmp(tipo,'full')
             A=full(A);
             opt.full=true;
             opt.inf=false;
             opt.sup=false;
         end
         f = @() risolve(A,b,opt); % handle to function
-        f_m = @() A\b;
-        exec_times(1,j) = timeit(f);
-        exec_times(2,j) = timeit(f_m);
+        f_ml_Divide = @() A\b;
+        tempi_esecuzione(1,j) = timeit(f);
+        tempi_esecuzione(2,j) = timeit(f_ml_Divide);
         dim_input(j) = i;
         j = j+1;
     end
-    plot(dim_input,exec_times(1,:),dim_input,exec_times(2,:))
-    title("Performance dell'algoritmo")
+    plot(dim_input,tempi_esecuzione(1,:),dim_input,tempi_esecuzione(2,:))
+    title("Risolve vs Mldivide")
     xlabel('Numero di righe di A')
     ylabel('Tempo di esecuzione (s)')
     legend('risolve','mldivide')
@@ -42,7 +42,7 @@ function Valuta_Performance(from, to, periodo_campionamento, matrix_type)
      %% Creazione di un grafico dell'errore e del residuo
     %se u(a)(indice di condizionamento) è piccolo allora posso stimare errore relativo e residuo perchè sono quasi uguali.
   
-        if(strcmp( matrix_type,'full'))
+        if(strcmp( tipo,'full'))
             opt.full=true;
             opt.sup=false;
             opt.inf=false;
@@ -59,17 +59,17 @@ function Valuta_Performance(from, to, periodo_campionamento, matrix_type)
         figure('Renderer', 'painters', 'Position', [30 30 1600 600])
         subplot(1,2,1);
         plot(x,log10(c))
-        xlabel('Soluzioni')
-        ylabel('Indici di condizionamento')
+        xlabel('Numero di righe matrice A')
+        ylabel('Esponente di 10')
         title('Indice di Condizionamento')
         hold on
         subplot(1,2,2);
         plot(x,log10(re),'g',x,log10(er),'m')
         legend('Residuo','Errore')
-        xlabel('Soluzioni')
-        ylabel('Errore x Residuo')
+        xlabel('Numero di righe matrice A')
+        ylabel('Esponente di 10')
         title('Confronto Errore Residuo')
-        sgtitle('Grafico degli indici di condizionamento, errore e residuo dell''errore')
+        sgtitle('Grafico degli indici di condizionamento, errore e residuo ')
         else
             warning('Attenzione grafico non possibile. La matrice dev''essere piena');
         end

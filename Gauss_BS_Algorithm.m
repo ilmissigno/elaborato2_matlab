@@ -41,7 +41,7 @@ end
 %-------------------
 % Back Substitution
 %-------------------
-x = BS_Algorithm_Gauss(A,b,n,piv);
+x = BS_Algorithm_For_Gauss(A,b,n,piv);
 end
 
 

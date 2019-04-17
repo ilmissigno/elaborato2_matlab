@@ -14,7 +14,7 @@ if(~isnumeric(A) || ~isreal(A))
 end
 
 if(issparse(A))
-      error('Err:Matrix_NotSparse','La matrice A nond deve essere sparsa');
+      error('Err:Matrix_NotSparse','La matrice A non deve essere sparsa');
 end
 if(find(~isfinite(A)))
       error('Err:Matrix_NotFinite','I valori di A devono essere numeri reali finiti');
