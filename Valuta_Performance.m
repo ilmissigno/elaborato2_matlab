@@ -62,8 +62,10 @@ function Valuta_Performance(from, to, periodo_campionamento, matrix_type)
         xlabel('Soluzioni')
         ylabel('Indici di condizionamento')
         title('Indice di Condizionamento')
+        hold on
         subplot(1,2,2);
         plot(x,log10(re),'g',x,log10(er),'m')
+        legend('Residuo','Errore')
         xlabel('Soluzioni')
         ylabel('Errore x Residuo')
         title('Confronto Errore Residuo')
