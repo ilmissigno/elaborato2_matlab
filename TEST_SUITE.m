@@ -1,8 +1,86 @@
 classdef TEST_SUITE < matlab.unittest.TestCase
     
     methods(Test)
+           function TestCase1(testCase)
+            %% TEST MATRICE A VUOTA
+            % Verifica l'errore nel caso in cui la matrice A è vuota 
+            [A,b,opt] = Richiama_Parametri();
+            A=[];
+            verifyError(testCase,@()risolve(A,b,opt),'Err:EmptyMatrix');
+        end
         
-        function TestCase1(testCase)
+        function TestCase2(testCase)
+            %% TEST MATRICE A NON NUMERICA 
+            %Verifica l'errore nel caso in cui la matrice A non è numerica
+            
+            [A,b,opt] = Richiama_Parametri();
+            A= [3,2; 'a',4];
+            verifyError(testCase,@()risolve(A,b,opt), 'Err:Matrix_NotNumeric');
+            
+        end
+        
+        function TestCase3(testCase)
+            %% TEST MATRICE A NON SPARSA
+            %Verifica l'errore nel caso in cui la matrice A è sparsa
+            
+            [A,b,opt] = Richiama_Parametri();
+            A = sparse(A);
+            verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotSparse');
+            
+        end
+        
+        function TestCase4(testCase)
+            %% TEST MATRICE A NON FINITA
+            %verifica l'errore nel caso in cui la matrice A non è finita
+            [A,b,opt] = Richiama_Parametri();
+            A = [2 3; inf 4];
+            verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotFinite');
+            
+        end
+        
+        
+        
+        function TestCase5(testCase)
+            %% TEST MATRICE A NON QUADRATICA
+            %verifica l'errore nel caso in cui la matrice A non è
+            %quadratica
+            [A,b,opt] = Richiama_Parametri();
+            A = [2 3 4; 4 5 3];
+           verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotQuadratic');
+            
+        end
+        
+        function TestCase6(testCase)
+            %% TEST VETTORE B REALE
+            %Verifica l'errore nel caso in cui b non è un vettore reale
+            [A,b,opt] = Richiama_Parametri();
+            b = [3;4;'a'];
+            verifyError(testCase,@()risolve(A,b,opt),'Err:BReal');
+            
+        end
+        function TestCase7(testCase)
+            %% TEST VETTORE B REALE FINITO
+            %Verifica l'errore nel caso in cui il vettore b non è reale
+            %finito
+            [A,b,opt] = Richiama_Parametri();
+            b = [22;3;inf];
+            verifyError(testCase,@()risolve(A,b,opt),'Err:BRealFinito');
+            
+            
+        end
+        
+        function TestCase8(testCase)
+            %% TEST VETTORE B COERENTE CON LA MATRICE A 
+            %Verifica l'errore nel caso in cui il vettore b ha un numero di
+            %righe diverso dal numero di righe di A
+          
+            [A,b,opt] = Richiama_Parametri();
+            A = rand(4);
+            b = [1;2;3];
+            verifyError(testCase,@()risolve(A,b,opt),'Err:CoerenzaAeB');
+            
+        end
+        function TestCase9(testCase)
             %% TEST CONTROLLO OPT
             %Verifica se il campo opt è una struttura 
             
@@ -11,7 +89,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             verifyError(testCase,@()risolve(A,b,opt),'Err:optStruct');
         end
         
-        function TestCase2(testCase)
+        function TestCase10(testCase)
             %% TEST CAMPI STRUTTURA OPT 
             %verifica l'errore nel caso in cui il campo di opt non sia uno tra:
             %inf, sup, full
@@ -25,7 +103,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
         
         
         
-        function TestCase3(testCase)       
+        function TestCase11(testCase)       
             %% TEST CAMPI OPT NON LOGICI 
             %verifica l'errore nel caso in cui i campi di opt siano non
             %logici
@@ -39,7 +117,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
         end
         
-        function TestCase4(testCase)
+        function TestCase12(testCase)
             %% TEST MUTUA ESCLUSIONE CAMPI OPT
             %verifica l'errore nel caso in cui più campi di opt assumono
             %valore true 
@@ -50,7 +128,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             verifyError(testCase,@()risolve(A,b,opt),'Err:MutuaEsclusioneCampi');
         end
         
-        function TestCase5(testCase)
+        function TestCase13(testCase)
             %% TEST MATRICE COERENTE
             %verifica l'errore nel caso in cui la matrice A non è coerente
             %con il campo specificato
@@ -64,7 +142,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
         end
         
-        function TestCase5_1(testCase)
+        function TestCase14(testCase)
             %% TEST MATRICE COERENTE
             %verifica l'errore nel caso in cui la matrice A non è coerente
             %con il campo specificato
@@ -78,7 +156,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
         end
         
-         function TestCase5_2(testCase)
+         function TestCase15(testCase)
             %% TEST MATRICE COERENTE
             %verifica l'errore nel caso in cui la matrice A non è coerente
             %con il campo specificato
@@ -92,90 +170,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
          end
         
-        
-        
-        function TestCase7(testCase)
-            %% TEST VETTORE B REALE
-            %Verifica l'errore nel caso in cui b non è un vettore reale
-            [A,b,opt] = Richiama_Parametri();
-            b = [3;4;'a'];
-            verifyError(testCase,@()risolve(A,b,opt),'Err:BReal');
-            
-        end
-        function TestCase8(testCase)
-            %% TEST VETTORE B REALE FINITO
-            %Verifica l'errore nel caso in cui il vettore b non è reale
-            %finito
-            [A,b,opt] = Richiama_Parametri();
-            b = [22;3;inf];
-            verifyError(testCase,@()risolve(A,b,opt),'Err:BRealFinito');
-            
-            
-        end
-        
-        function TestCase9(testCase)
-            %% TEST VETTORE B COERENTE CON LA MATRICE A 
-            %Verifica l'errore nel caso in cui il vettore b ha un numero di
-            %righe diverso dal numero di righe di A
-          
-            [A,b,opt] = Richiama_Parametri();
-            A = rand(4);
-            b = [1;2;3];
-            verifyError(testCase,@()risolve(A,b,opt),'Err:CoerenzaAeB');
-            
-        end
-        
-        
-        function TestCase11(testCase)
-            %% TEST MATRICE A VUOTA
-            % Verifica l'errore nel caso in cui la matrice A è vuota 
-            [A,b,opt] = Richiama_Parametri();
-            A=[];
-            verifyError(testCase,@()risolve(A,b,opt),'Err:EmptyMatrix');
-        end
-        
-        function TestCase13(testCase)
-            %% TEST MATRICE A NON NUMERICA 
-            %Verifica l'errore nel caso in cui la matrice A non è numerica
-            
-            [A,b,opt] = Richiama_Parametri();
-            A= [3,2; 'a',4];
-            verifyError(testCase,@()risolve(A,b,opt), 'Err:Matrix_NotNumeric');
-            
-        end
-        
-        function TestCase14(testCase)
-            %% TEST MATRICE A NON SPARSA
-            %Verifica l'errore nel caso in cui la matrice A è sparsa
-            
-            [A,b,opt] = Richiama_Parametri();
-            A = sparse(A);
-            verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotSparse');
-            
-        end
-        
-        function TestCase15(testCase)
-            %% TEST MATRICE A NON FINITA
-            %verifica l'errore nel caso in cui la matrice A non è finita
-            [A,b,opt] = Richiama_Parametri();
-            A = [2 3; inf 4];
-            verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotFinite');
-            
-        end
-        
-        
-        
-        function TestCase16(testCase)
-            %% TEST MATRICE A NON QUADRATICA
-            %verifica l'errore nel caso in cui la matrice A non è
-            %quadratica
-            [A,b,opt] = Richiama_Parametri();
-            A = [2 3 4; 4 5 3];
-           verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotQuadratic');
-            
-        end
-        
-        function TestCase18(testCase)
+          function TestCase16(testCase)
             %%  Verifica l'errore nel caso la matrice sia singolare
             
             [A,b,opt] = Richiama_Parametri();
