@@ -1,7 +1,7 @@
 A = [1 1; 3 2];
 %A = tril(A);
 b = [1; 7];
-tipo='full'
+tipo='full';
  if strcmp(tipo,'full')
         opt.full = true;
         opt.sup=false; 

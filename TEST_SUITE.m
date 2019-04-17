@@ -180,6 +180,10 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
             [A,b,opt] = Richiama_Parametri();
             A = rand(3);
+            A = triu(A);
+            opt.sup=true;
+            opt.full=false;
+            opt.inf=false;
             A(1,1)=0;
             verifyError(testCase,@()risolve(A,b,opt),'Err:A_Singolare');
     

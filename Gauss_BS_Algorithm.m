@@ -6,7 +6,7 @@ for i=1:n
 end
 
 for k=1:n-1
-    r=find(abs(A(piv(1:n),k))==max(abs(A(piv(k+1:n),k))),1);
+    r=find(abs(A(piv(1:n),k))==max(abs(A(piv(k:n),k))),1);
     %r=r(1,1);
     if abs(A(piv(r),k))>e
      
@@ -30,13 +30,13 @@ for k=1:n-1
             b(piv(i))=b(piv(i))-(A(piv(i),k)*b(piv(k)));
         end
     else                        % ...altrimenti il sistema è singolare
-        error ('Sistema singolare: programma arrestato');
+        error ('Err:A_Singolare','Sistema singolare: programma arrestato');
     end
 end
 
 % Controllo della singolarità sull'ultimo elemento diagonale
 if abs(A(piv(n),n))<=e
-    error('Sistema singolare su ultimo passo, Errore nei dati di input!');
+    error('Err:A_Singolare','Sistema singolare su ultimo passo, Errore nei dati di input!');
 end
 %-------------------
 % Back Substitution

@@ -46,15 +46,14 @@ function Valuta_Performance(from, to, periodo_campionamento, matrix_type)
             opt.full=true;
             opt.sup=false;
             opt.inf=false;
-        for n=1:200
-            a=rand(n);
-            a=full(a);
-            x=2*ones(n,1);
-            b=a*x;
-            c(n)=cond(a);
-            y=risolve(a,b,opt);
-            re(n)=norm(a*y-b)/(norm(a)*norm(y));
-            er(n)=norm(x-y)/norm(x);
+        for k=2:200
+            A = full(rand(k)); 
+            x = 2*ones(k,1);
+            b = A*x;
+            c(k)=cond(A);
+            y=risolve(A,b,opt);
+            re(k)=norm(A*y-b)/(norm(A)*norm(y));
+            er(k)=norm(x-y)/norm(x);
         end
         x=1:200;
         figure('Renderer', 'painters', 'Position', [30 30 1600 600])
