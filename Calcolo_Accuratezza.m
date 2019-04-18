@@ -19,7 +19,7 @@ function [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,tipo)
     else
         error("Tipo matrice non valido");
     end
-    %% Per le matrici triangolari inf e sup mi baso sull'errore relativo poichè non si può applicare Wilkinson
+    %% Per le matrici triangolari inf e sup calcolo l'errore relativo 
     indice_cond = cond(A);
     x_attuale = risolve(A,b,opt);
     err = norm(x-x_attuale)/norm(x);
