@@ -30,12 +30,13 @@ function Valuta_Performance(inizio, fine, passo, tipo)
         dim_input(j) = i;
         j = j+1;
     end
+    figure('Renderer', 'painters', 'Position', [60 60 768 1024])
+    subplot(2,2,[3 4]);
     plot(dim_input,tempi_esecuzione(1,:),dim_input,tempi_esecuzione(2,:))
     title("Risolve vs Mldivide")
     xlabel('Numero di righe di A')
     ylabel('Tempo di esecuzione (s)')
     legend('risolve','mldivide')
-
 
 
     %% Grafico dell'indice di condizionamento e dell'errore
@@ -56,14 +57,13 @@ function Valuta_Performance(inizio, fine, passo, tipo)
             er(k)=norm(x-y)/norm(x);
         end
         x=1:200;
-        figure('Renderer', 'painters', 'Position', [30 30 1600 600])
-        subplot(1,2,1);
+        subplot(2,2,1);
         plot(x,log10(c))
         xlabel('Numero di righe matrice A')
         ylabel('Esponente di 10')
         title('Indice di Condizionamento')
         hold on
-        subplot(1,2,2);
+        subplot(2,2,2);
         plot(x,log10(re),'g',x,log10(er),'m')
         legend('Residuo','Errore')
         xlabel('Numero di righe matrice A')

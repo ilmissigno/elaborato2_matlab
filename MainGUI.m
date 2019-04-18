@@ -22,7 +22,7 @@ function varargout = MainGUI(varargin)
 
 % Edit the above text to modify the response to help MainGUI
 
-% Last Modified by GUIDE v2.5 14-Apr-2019 15:55:17
+% Last Modified by GUIDE v2.5 18-Apr-2019 12:57:26
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -241,6 +241,10 @@ if(strcmp(campoFull,'true'))
 else
     campoFull = false;
 end
+if((campoSup && campoInf) || (campoFull && campoInf) || (campoSup && campoFull))
+    errordlg('Solo uno dei campi di Opt deve essere true','Errore');
+ error('Err:MutuaEsclusioneCampi','Solo uno dei campi di opt devono assumere true');
+end
 A = rand(dimensioneA,dimensioneA);
 answer = questdlg('Generare Matrice Ben Condizionata?','Genera Matrice','Si','No','No');
 switch answer
@@ -335,35 +339,38 @@ opt.inf = campoInf;
 opt.sup = campoSup;
 opt.full = campoFull;
 if(opt.inf)
-    answer2 = questdlg('Mostrare grafico dell''indice di condizionamento?','Mostra Grafico','Si','No','No');
-    switch answer2
-        case 'Si'
-          [indice_cond,err,residuo,~] = Calcolo_Accuratezza(A,x,b,'inf');
-          set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
-        case 'No'
-          [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'inf');
-          set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
-    end
+    [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'inf');
+    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
 end
 if(opt.sup)
-    answer3= questdlg('Mostrare grafico dell''indice di condizionamento?','Mostra Grafico','Si','No','No');
-    switch answer3
-        case 'Si'
-          [indice_cond,err,residuo,~] = Calcolo_Accuratezza(A,x,b,'sup');
-          set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
-        case 'No'
-          [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'sup');
-          set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
-    end
+    [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'sup');
+    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
 end
 if(opt.full)
-    answer4 = questdlg('Mostrare grafico dell''indice di condizionamento?','Mostra Grafico','Si','No','No');
-    switch answer4
-        case 'Si'
-          [indice_cond,err,residuo,~] = Calcolo_Accuratezza(A,x,b,'full');
-          set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
-        case 'No'
-          [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'full');
-          set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
-    end
+    [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'full');
+    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
 end
+
+
+% --- Executes on button press in btnInfo.
+function btnInfo_Callback(hObject, eventdata, handles)
+% hObject    handle to btnInfo (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+open('Risolve_doc.pdf');
+
+
+% --- Executes on button press in btnCasiTest.
+function btnCasiTest_Callback(hObject, eventdata, handles)
+% hObject    handle to btnCasiTest (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+open('Test_Algoritmo_Risolve.pdf');
+
+
+% --- Executes on button press in btnValutaPerformance.
+function btnValutaPerformance_Callback(hObject, eventdata, handles)
+% hObject    handle to btnValutaPerformance (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Valuta_Performance(2,100,1,'full')
