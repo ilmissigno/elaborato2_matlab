@@ -1,7 +1,5 @@
 function controllo_MatrixA(A)
 
-
-
 if(~ismatrix(A))
        error('Err:A_isMatrix','A deve essere una matrice');
 end

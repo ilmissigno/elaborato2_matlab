@@ -15,7 +15,7 @@ function [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,tipo)
     elseif strcmp(tipo,'sup')
         opt.sup = true;
         opt.inf = false;
-           opt.full=false;
+        opt.full=false;
     else
         error("Tipo matrice non valido");
     end

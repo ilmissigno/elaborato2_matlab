@@ -1,16 +1,16 @@
 classdef TEST_SUITE < matlab.unittest.TestCase
     
     methods(Test)
-           function TestCase1(testCase)
+        function TestCase1(testCase)
             %% TEST MATRICE A VUOTA
-            % Verifica l'errore nel caso in cui la matrice A è vuota 
+            % Verifica l'errore nel caso in cui la matrice A è vuota
             [A,b,opt] = Richiama_Parametri();
             A=[];
             verifyError(testCase,@()risolve(A,b,opt),'Err:EmptyMatrix');
         end
         
         function TestCase2(testCase)
-            %% TEST MATRICE A NON NUMERICA 
+            %% TEST MATRICE A NON NUMERICA
             %Verifica l'errore nel caso in cui la matrice A non è numerica
             
             [A,b,opt] = Richiama_Parametri();
@@ -46,7 +46,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             %quadratica
             [A,b,opt] = Richiama_Parametri();
             A = [2 3 4; 4 5 3];
-           verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotQuadratic');
+            verifyError(testCase,@()risolve(A,b,opt),'Err:Matrix_NotQuadratic');
             
         end
         
@@ -70,10 +70,10 @@ classdef TEST_SUITE < matlab.unittest.TestCase
         end
         
         function TestCase8(testCase)
-            %% TEST VETTORE B COERENTE CON LA MATRICE A 
+            %% TEST VETTORE B COERENTE CON LA MATRICE A
             %Verifica l'errore nel caso in cui il vettore b ha un numero di
             %righe diverso dal numero di righe di A
-          
+            
             [A,b,opt] = Richiama_Parametri();
             A = rand(4);
             b = [1;2;3];
@@ -82,7 +82,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
         end
         function TestCase9(testCase)
             %% TEST CONTROLLO OPT
-            %Verifica se il campo opt è una struttura 
+            %Verifica se il campo opt è una struttura
             
             [A,b,opt] = Richiama_Parametri();
             opt = 'a';
@@ -90,7 +90,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
         end
         
         function TestCase10(testCase)
-            %% TEST CAMPI STRUTTURA OPT 
+            %% TEST CAMPI STRUTTURA OPT
             %verifica l'errore nel caso in cui il campo di opt non sia uno tra:
             %inf, sup, full
             
@@ -103,8 +103,8 @@ classdef TEST_SUITE < matlab.unittest.TestCase
         
         
         
-        function TestCase11(testCase)       
-            %% TEST CAMPI OPT NON LOGICI 
+        function TestCase11(testCase)
+            %% TEST CAMPI OPT NON LOGICI
             %verifica l'errore nel caso in cui i campi di opt siano non
             %logici
             
@@ -120,10 +120,10 @@ classdef TEST_SUITE < matlab.unittest.TestCase
         function TestCase12(testCase)
             %% TEST MUTUA ESCLUSIONE CAMPI OPT
             %verifica l'errore nel caso in cui più campi di opt assumono
-            %valore true 
+            %valore true
             [A,b,opt] = Richiama_Parametri();
             opt.sup = true;
-            opt.inf = true; 
+            opt.inf = true;
             opt.full= false;
             verifyError(testCase,@()risolve(A,b,opt),'Err:MutuaEsclusioneCampi');
         end
@@ -133,7 +133,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             %verifica l'errore nel caso in cui la matrice A non è coerente
             %con il campo specificato
             [A,b,opt] = Richiama_Parametri();
-            A = triu(A); 
+            A = triu(A);
             opt.inf = true;
             opt.full= false;
             opt.sup= false;
@@ -147,7 +147,7 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             %verifica l'errore nel caso in cui la matrice A non è coerente
             %con il campo specificato
             [A,b,opt] = Richiama_Parametri();
-            A = tril(A); 
+            A = tril(A);
             opt.sup = true;
             opt.inf= false;
             opt.full= false;
@@ -156,21 +156,21 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             
         end
         
-         function TestCase15(testCase)
+        function TestCase15(testCase)
             %% TEST MATRICE COERENTE
             %verifica l'errore nel caso in cui la matrice A non è coerente
             %con il campo specificato
             [A,b,opt] = Richiama_Parametri();
-            A = full(A); 
+            A = full(A);
             opt.sup = true;
             opt.inf = false;
             opt.full =false;
             verifyError(testCase,@()risolve(A,b,opt),'Err:MatriceCoerente');
             
             
-         end
+        end
         
-          function TestCase16(testCase)
+        function TestCase16(testCase)
             %%  Verifica l'errore nel caso la matrice sia singolare
             
             [A,b,opt] = Richiama_Parametri();
@@ -181,10 +181,10 @@ classdef TEST_SUITE < matlab.unittest.TestCase
             opt.inf=false;
             A(1,1)=0;
             verifyError(testCase,@()risolve(A,b,opt),'Err:A_Singolare');
-    
+            
         end
         
-         
+        
         
     end
     
