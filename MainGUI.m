@@ -195,7 +195,7 @@ function getSol_Callback(hObject, eventdata, handles)
 % hObject    handle to getSol (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-format longe
+%format longe
 finaltext = '';
 dimensioneA = str2double(get(handles.dimA, 'String'));
 if(~isnumeric(dimensioneA) || dimensioneA<=1 || isempty(dimensioneA))
@@ -275,7 +275,7 @@ function btnCheckAccuracy_Callback(hObject, eventdata, handles)
 % hObject    handle to btnCheckAccuracy (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-format longe
+%format longe
 dimensioneA = str2double(get(handles.dimA, 'String'));
 if(~isnumeric(dimensioneA) || dimensioneA<=1 || isempty(dimensioneA))
      errordlg('Inserire un valore numerico che sia maggiore o uguale a 2');
