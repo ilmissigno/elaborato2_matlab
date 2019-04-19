@@ -1,9 +1,4 @@
 function [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,tipo)
-    opt.full=true; opt.sup=false; opt.inf=false;
-    indice_cond=0;
-    err=0;
-    residuo=0;
-    
     if strcmp(tipo,'full')
         opt.full = true;
         opt.sup=false; 

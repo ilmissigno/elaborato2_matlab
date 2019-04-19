@@ -22,7 +22,7 @@ function varargout = MainGUI(varargin)
 
 % Edit the above text to modify the response to help MainGUI
 
-% Last Modified by GUIDE v2.5 18-Apr-2019 12:57:26
+% Last Modified by GUIDE v2.5 19-Apr-2019 11:25:16
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -264,7 +264,7 @@ opt.sup = campoSup;
 opt.full = campoFull;
 x = risolve(A,b,opt);
 for i=1:length(x)
-testo = sprintf('x =  %.5e',x(i));
+testo = sprintf('x =  %.3e',x(i));
 end
 finaltext = [finaltext,' ',testo];
 set(handles.ris,'String',sprintf('Soluzioni del Sistema \n %s',finaltext));
@@ -340,15 +340,15 @@ opt.sup = campoSup;
 opt.full = campoFull;
 if(opt.inf)
     [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'inf');
-    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
+    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.10e \n Errore Relativo = %.10e \n Residuo = %.10e \n',indice_cond,err,residuo));
 end
 if(opt.sup)
     [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'sup');
-    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
+    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.10e \n Errore Relativo = %.10e \n Residuo = %.19e \n',indice_cond,err,residuo));
 end
 if(opt.full)
     [indice_cond,err,residuo] = Calcolo_Accuratezza(A,x,b,'full');
-    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.16e \n Errore Relativo = %.16e \n Residuo = %.16e \n',indice_cond,err,residuo));
+    set(handles.ris,'String',sprintf('Indice di Accuratezza = %.10e \n Errore Relativo = %.10e \n Residuo = %.10e \n',indice_cond,err,residuo));
 end
 
 
